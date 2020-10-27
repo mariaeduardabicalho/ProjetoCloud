@@ -1,0 +1,24 @@
+---
+- name: Create a sandbox instance
+  hosts: localhost
+  gather_facts: False
+  vars:
+    keypair: id_rsa
+    instance_type: t2.micro
+    security_group: default
+    image: ami-0817d428a6fb68645
+    region: us-east-1
+  tasks:
+    - name: Launch instance
+      ec2:
+         key_name: "{{ keypair }}"
+         group: "{{ security_group }}"
+         instance_type: "{{ instance_type }}"
+         image: "{{ image }}"
+         wait: true
+         region: "{{ region }}"   
+         vpc_subnet_id: subnet-c1cf7da6 
+         aws_access_key: AKIASZNVZVJHGABFJVYR
+         aws_secret_key: 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 
+         assign_public_ip: yes
+      register: ec2
